@@ -1,0 +1,12 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=IZEcoin
+Comment=IZEcoin P2P Cryptocurrency
+Comment[fr]=IZEcoin, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=IZEcoin, eşten eşe kriptografik sanal para birimi
+Exec=/usr/bin/izecoin-qt
+Terminal=false
+Type=Application
+Icon=/usr/share/pixmaps/bitcoin80.xpm
+MimeType=x-scheme-handler/izecoin;
+Categories=Office;

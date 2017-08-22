@@ -1,0 +1,2 @@
+debian/bin/izecoind usr/bin
+src/izecoind usr/lib/izecoin
