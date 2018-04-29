@@ -135,7 +135,7 @@ bool WalletModel::validateAddress(const QString &address)
     CBitcoinAddress addressParsed(address.toStdString());
     return addressParsed.IsValid();
 }
-
+// myfix for transaction main
 WalletModel::SendCoinsReturn WalletModel::sendCoins(const QList<SendCoinsRecipient> &recipients, const CCoinControl *coinControl)
 {
     qint64 total = 0;

@@ -575,6 +575,7 @@ bool CTransaction::CheckTransaction() const
     return true;
 }
 
+// myfix for transaction fee main
 int64_t GetMinFee(const CTransaction& tx, unsigned int nBlockSize, enum GetMinFee_mode mode, unsigned int nBytes)
 {
     // Base fee is either MIN_TX_FEE or MIN_RELAY_TX_FEE
