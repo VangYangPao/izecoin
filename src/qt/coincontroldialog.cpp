@@ -485,6 +485,7 @@ void CoinControlDialog::updateLabels(WalletModel *model, QDialog* dialog)
         dPriority = dPriorityInputs / nBytes;
         sPriorityLabel = CoinControlDialog::getPriorityLabel(dPriority);
         
+        // myfix for transaction fee
         // Fee
         int64_t nFee = nTransactionFee * (1 + (int64_t)nBytes / 1000);
         
@@ -527,6 +528,7 @@ void CoinControlDialog::updateLabels(WalletModel *model, QDialog* dialog)
     dialog->findChild<QLabel *>("labelCoinControlChangeText")   ->setEnabled(nPayAmount > 0);
     dialog->findChild<QLabel *>("labelCoinControlChange")       ->setEnabled(nPayAmount > 0);
     
+    // myfixfor transaction fee
     // stats
     l1->setText(QString::number(nQuantity));                                 // Quantity        
     l2->setText(BitcoinUnits::formatWithUnit(nDisplayUnit, nAmount));        // Amount

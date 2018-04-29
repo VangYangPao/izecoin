@@ -10,6 +10,8 @@
 #include "sync.h"
 #include "txmempool.h"
 #include "net.h"
+// my fix for x13
+#include "hashblock.h"
 #include "script.h"
 #include "scrypt.h"
 
@@ -43,6 +45,7 @@ static const unsigned int MAX_ORPHAN_TRANSACTIONS = MAX_BLOCK_SIZE/100;
 static const unsigned int DEFAULT_MAX_ORPHAN_BLOCKS = 750;
 /** The maximum number of entries in an 'inv' protocol message */
 static const unsigned int MAX_INV_SZ = 50000;
+// myfix for transaction fee
 /** Fees smaller than this (in satoshi) are considered zero fee (for transaction creation) */
 static const int64_t MIN_TX_FEE = 10000;
 /** Fees smaller than this (in satoshi) are considered zero fee (for relaying) */
@@ -53,6 +56,7 @@ inline bool MoneyRange(int64_t nValue) { return (nValue >= 0 && nValue <= MAX_MO
 /** Threshold for nLockTime: below this value it is interpreted as block number, otherwise as UNIX timestamp. */
 static const unsigned int LOCKTIME_THRESHOLD = 500000000; // Tue Nov  5 00:53:20 1985 UTC
 
+// myfix for 5% monthly per 1k izecoin 
 static const int64_t COIN_YEAR_REWARD = 5 * CENT;
 
 inline bool IsProtocolV1RetargetingFixed(int nHeight) { return TestNet() || nHeight > 1; } 
@@ -647,12 +651,18 @@ public:
         return (nBits == 0);
     }
 
+    // myfix for x13
     uint256 GetHash() const
     {
-        if (nVersion > 6)
-            return Hash(BEGIN(nVersion), END(nNonce));
-        else
-            return GetPoWHash();
+        bool x13 = true; // true:x13, false:SHA256 
+        if(x13==false){
+            if (nVersion > 6)
+                return Hash(BEGIN(nVersion), END(nNonce));
+            else
+                return GetPoWHash();
+        }
+        // x13        
+        return Hash9(BEGIN(nVersion), END(nNonce));
     }
 
     uint256 GetPoWHash() const

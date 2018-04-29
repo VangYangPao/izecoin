@@ -77,7 +77,6 @@ class Slice {
             (memcmp(data_, x.data_, x.size_) == 0));
   }
 
- private:
   const char* data_;
   size_t size_;
 
@@ -94,7 +93,7 @@ inline bool operator!=(const Slice& x, const Slice& y) {
 }
 
 inline int Slice::compare(const Slice& b) const {
-  const size_t min_len = (size_ < b.size_) ? size_ : b.size_;
+  const int min_len = (size_ < b.size_) ? size_ : b.size_;
   int r = memcmp(data_, b.data_, min_len);
   if (r == 0) {
     if (size_ < b.size_) r = -1;

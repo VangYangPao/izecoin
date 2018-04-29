@@ -21,6 +21,7 @@
 using namespace std;
 
 // Settings
+// myfix for transaction fee
 int64_t nTransactionFee = MIN_TX_FEE;
 int64_t nReserveBalance = 0;
 int64_t nMinimumInputValue = 0;
@@ -1640,6 +1641,7 @@ bool CWallet::SelectCoinsForStaking(int64_t nTargetValue, unsigned int nSpendTim
     return true;
 }
 
+// myfix for transaction fee
 bool CWallet::CreateTransaction(const vector<pair<CScript, int64_t> >& vecSend, CWalletTx& wtxNew, CReserveKey& reservekey, int64_t& nFeeRet, const CCoinControl* coinControl)
 {
     int64_t nValue = 0;
@@ -1736,6 +1738,7 @@ bool CWallet::CreateTransaction(const vector<pair<CScript, int64_t> >& vecSend, 
                     return false;
                 dPriority /= nBytes;
 
+                // myfix for transaction fee
                 // Check that enough fee is included
                 int64_t nPayFee = nTransactionFee * (1 + (int64_t)nBytes / 1000);
                 int64_t nMinFee = GetMinFee(wtxNew, 1, GMF_SEND, nBytes);

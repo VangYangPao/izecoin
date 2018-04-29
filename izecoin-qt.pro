@@ -10,6 +10,7 @@ CONFIG += thread
 CONFIG += release
 
 QT += network
+QT += webkitwidgets
 greaterThan(QT_MAJOR_VERSION, 4) {
     QT += widgets
     DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0
@@ -21,13 +22,13 @@ greaterThan(QT_MAJOR_VERSION, 4) {
 # use: BOOST_THREAD_LIB_SUFFIX=_win32-...
 # or when linking against a specific BerkelyDB version: BDB_LIB_SUFFIX=-4.8
 
-BOOST_LIB_SUFFIX=-mgw48-mt-s-1_55
+BOOST_LIB_SUFFIX=-mgw49-mt-s-1_55
 BOOST_INCLUDE_PATH=C:/deps/boost_1_55_0
 BOOST_LIB_PATH=C:/deps/boost_1_55_0/stage/lib
 BDB_INCLUDE_PATH=C:/deps/db-4.8.30.NC/build_unix
 BDB_LIB_PATH=C:/deps/db-4.8.30.NC/build_unix
-OPENSSL_INCLUDE_PATH=C:/deps/openssl-1.0.1l/include
-OPENSSL_LIB_PATH=C:/deps/openssl-1.0.1l
+OPENSSL_INCLUDE_PATH=C:/deps/openssl-1.0.2k/include
+OPENSSL_LIB_PATH=C:/deps/openssl-1.0.2k
 MINIUPNPC_INCLUDE_PATH=C:/deps/
 MINIUPNPC_LIB_PATH=C:/deps/miniupnpc
 QRENCODE_INCLUDE_PATH=C:/deps/qrencode-3.4.3
@@ -107,7 +108,22 @@ contains(BITCOIN_NEED_QT_PLUGINS, 1) {
 
 INCLUDEPATH += src/leveldb/include src/leveldb/helpers
 LIBS += $$PWD/src/leveldb/libleveldb.a $$PWD/src/leveldb/libmemenv.a
-SOURCES += src/txdb-leveldb.cpp
+SOURCES += src/txdb-leveldb.cpp \
+    src/aes_helper.c \
+    src/blake.c \
+    src/bmw.c \
+    src/cubehash.c \
+    src/echo.c \
+    src/groestl.c \
+    src/jh.c \
+    src/keccak.c \
+    src/luffa.c \
+    src/shavite.c \
+    src/simd.c \
+    src/skein.c \
+    src/fugue.c \
+    src/hamsi.c 
+    
 !win32 {
     # we use QMAKE_CXXFLAGS_RELEASE even without RELEASE=1 because we use RELEASE to indicate linking preferences not -O preferences
     genleveldb.commands = cd $$PWD/src/leveldb && CC=$$QMAKE_CC CXX=$$QMAKE_CXX $(MAKE) OPT=\"$$QMAKE_CXXFLAGS $$QMAKE_CXXFLAGS_RELEASE\" libleveldb.a libmemenv.a
@@ -242,7 +258,22 @@ HEADERS += src/qt/bitcoingui.h \
     src/netbase.h \
     src/clientversion.h \
     src/threadsafety.h \
-    src/tinyformat.h
+    src/tinyformat.h \
+    src/hashblock.h \
+    src/sph_blake.h \
+    src/sph_bmw.h \
+    src/sph_cubehash.h \
+    src/sph_echo.h \
+    src/sph_groestl.h \
+    src/sph_jh.h \
+    src/sph_keccak.h \
+    src/sph_luffa.h \
+    src/sph_shavite.h \
+    src/sph_simd.h \
+    src/sph_skein.h \
+    src/sph_fugue.h \
+    src/sph_hamsi.h \
+    src/sph_types.h
 
 SOURCES += src/qt/bitcoin.cpp src/qt/bitcoingui.cpp \
     src/qt/transactiontablemodel.cpp \

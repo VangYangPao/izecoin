@@ -1564,6 +1564,7 @@ Value makekeypair(const Array& params, bool fHelp)
     return result;
 }
 
+// myfix for transaction fee
 Value settxfee(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() < 1 || params.size() > 1 || AmountFromValue(params[0]) < MIN_TX_FEE)

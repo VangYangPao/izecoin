@@ -21,6 +21,7 @@
 #include "util.h"
 
 // Settings
+// myfix for transaction fee
 extern int64_t nTransactionFee;
 extern int64_t nReserveBalance;
 extern int64_t nMinimumInputValue;

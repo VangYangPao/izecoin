@@ -100,7 +100,7 @@ def process_nodes(g, f, structname, defaultport):
         if not line:
             continue
         if not first:
-            g.write(',\n')
+            g.write(',\n') 
         first = False
 
         (host,port) = parse_spec(line, defaultport)

@@ -959,10 +959,21 @@ int64_t GetProofOfWorkReward(int nHeight, int64_t nFees)
     return nSubsidy + nFees;
 }
 
+// myfix for 5% monthly per 1k izecoin 
 // miner's coin stake reward based on coin age spent (coin-days)
 int64_t GetProofOfStakeReward(int64_t nCoinAge, int64_t nFees)
 {
-    int64_t nSubsidy = nCoinAge * COIN_YEAR_REWARD * 33 / (365 * 33 + 8);
+    // Reference : 
+    // 1. Get nCoinAge expression
+    // CBigNum bnCoinDay = bnCentSecond * CENT / COIN / (24 * 60 * 60);
+    // nCoinAge = bnCoinDay.getuint64();
+    // CENT=10^6, COIN=10^8
+    // 2. number per 1kcoin (ref : UKCoin) 
+    // pindexBest->height / 1000;
+    // 3. per month, because /365.(24) on below comment (ref : OpalCoin)
+    // https://talk.peercoin.net/t/proof-of-stake-reward-formula/1212/3
+    int64_t nSubsidy = nCoinAge * COIN_YEAR_REWARD * pindexBest->nHeight / 30 / 1000;
+    // int64_t nSubsidy = nCoinAge * COIN_YEAR_REWARD * 33 / (365 * 33 + 8);
 
     return nSubsidy + nFees;
 }

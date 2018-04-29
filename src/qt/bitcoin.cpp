@@ -59,6 +59,7 @@ static void ThreadSafeMessageBox(const std::string& message, const std::string& 
     }
 }
 
+// myfix for transaction fee
 static bool ThreadSafeAskFee(int64_t nFeeRequired, const std::string& strCaption)
 {
     if(!guiref)
