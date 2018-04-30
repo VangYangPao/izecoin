@@ -71,7 +71,8 @@ public:
         genesis.nVersion = 1;
         genesis.nTime    = 1524933676;
         genesis.nBits    = bnProofOfWorkLimit.GetCompact();
-        genesis.nNonce   = 4191303;
+        // myfix for nonce
+        genesis.nNonce   = 4191303; // 2^22
 		
         // myfix
         if (false && genesis.GetHash() != hashGenesisBlock)
