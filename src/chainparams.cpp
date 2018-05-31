@@ -74,51 +74,7 @@ public:
         // myfix for nonce
         genesis.nNonce   = 4191303; // 2^22
 		
-        // myfix
-        if (false && genesis.GetHash() != hashGenesisBlock)
-        {
-            printf("Searching for genesis block...\n");
-            // This will figure out a valid hash and Nonce if you're
-            // creating a different genesis block:
-            uint256 hashTarget = CBigNum().SetCompact(genesis.nBits).getuint256();
-            uint256 thash;
-            //char scratchpad[SCRYPT_SCRATCHPAD_SIZE];
- 
-            while(1)
-            {
-#if defined(USE_SSE2)
-                // Detection would work, but in cases where we KNOW it always has SSE2,
-                // it is faster to use directly than to use a function pointer or conditional.
-#if defined(_M_X64) || defined(__x86_64__) || defined(_M_AMD64) || (defined(MAC_OSX) && defined(__i386__))
-                // Always SSE2: x86_64 or Intel MacOS X
-                Hash9(BEGIN(genesis.nVersion), BEGIN(thash));
-#else
-                // Detect SSE2: 32bit x86 Linux or Windows
-                Hash9(BEGIN(genesis.nVersion), BEGIN(thash));
-#endif
-#else
-                // Generic scrypt
-                Hash9(BEGIN(genesis.nVersion), BEGIN(thash));
-#endif
-                if (thash <= hashTarget)
-                    break;
-                if ((genesis.nNonce & 0xFFF) == 0)
-                {
-                    printf("nonce %08X: hash = %s (target = %s)\n", genesis.nNonce, thash.ToString().c_str(), hashTarget.ToString().c_str());
-                }
-                ++genesis.nNonce;
-                if (genesis.nNonce == 0)
-                {
-                    printf("NONCE WRAPPED, incrementing time\n");
-                    ++genesis.nTime;
-                }
-            }
-            printf("genesis.nTime = %u \n", genesis.nTime);
-            printf("genesis.nNonce = %u \n", genesis.nNonce);
-            printf("genesis.GetHash = %s\n", genesis.GetHash().ToString().c_str());
-        }
-
-		hashGenesisBlock = genesis.GetHash();
+        hashGenesisBlock = genesis.GetHash();
         LogPrintStr("\ngenesis hash:");
         LogPrintStr(hashGenesisBlock.ToString().c_str());
         LogPrintStr("\n");
